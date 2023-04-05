@@ -40,13 +40,13 @@ const Form = () => {
 
 
   return (
-    <div>
+    <div className="contactForm">
       <form>
         <label>Nombre Completo</label>
         <input type="text" placeholder="nombre apellido" onChange={(e) => setContacto({...contacto, nombre: e.target.value})}></input>
         <label>Email</label>
         <input type="email" placeholder="usuario@mail.com" onChange={(e) => setContacto({...contacto, email: e.target.value})}></input>
-        <button onClick={handleSubmit}>ENVIAR</button>
+        <button className="buttonContactForm" onClick={handleSubmit}>ENVIAR</button>
       </form>
       {<p>{mensaje}</p>}
     </div>
