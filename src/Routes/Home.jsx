@@ -7,7 +7,8 @@ import { ContextGlobal } from '../Components/utils/global.context'
 const Home = () => {
 
  
-  const{data} = useContext(ContextGlobal)
+  //const{data} = useContext(ContextGlobal)
+  const{apiState} = useContext(ContextGlobal)
   //console.log(data)
 
   
@@ -16,7 +17,7 @@ const Home = () => {
     <main className="" >
       <h1>Home</h1>
       <div className='card-grid'>
-        { data ? data.map(dentist => <Card key={dentist.id} name={dentist.name} username={dentist.username} id={dentist.id}></Card>) : (<p>loading...</p>)}
+        { apiState ? apiState.map(dentist => <Card key={dentist.id} name={dentist.name} username={dentist.username} id={dentist.id}></Card>) : (<p>loading...</p>)}
       </div>
     </main>
   )

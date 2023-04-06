@@ -1,15 +1,24 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { type } from "@testing-library/user-event/dist/type";
+import { createContext, useContext, useEffect, useState,useReducer } from "react";
 
 export const initialState = {theme: "", data: []}
 
 export const ContextGlobal = createContext(initialState);
 
+const initialApiState = []
 
+const apiReducer = (state, action) => {
+  switch(action.type){
+      case 'GET_DENTISTS':
+          return action.payload
+      default:
+          throw new Error
+  }
+}
 
 export const ContextProvider = ({ children }) => {
-  //Aqui deberan implementar la logica propia del Context, utilizando el hook useMemo
+  const [apiState, apiDispatch] = useReducer(apiReducer, initialApiState)
   const [theme, setTheme] = useState('light')
-  const [data,setData] = useState()
   const url = "https://jsonplaceholder.typicode.com/users";
 
   const toggleTheme = () => {
@@ -19,12 +28,12 @@ export const ContextProvider = ({ children }) => {
   useEffect(()=> {
     fetch(url)
        .then(res => res.json())
-       .then(dataRes => setData(dataRes))
+       .then(dataRes => apiDispatch({type: 'GET_DENTISTS',payload: dataRes}))
   },[])
 
 
   return (
-    <ContextGlobal.Provider value={{theme,setTheme,data,setData,toggleTheme}}>
+    <ContextGlobal.Provider value={{apiState,theme,setTheme,toggleTheme}}>
       {children}
     </ContextGlobal.Provider>
   ); 
